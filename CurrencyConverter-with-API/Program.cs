@@ -4,6 +4,8 @@ namespace CurrencyConverter_with_API
 {
     class Program
     {
+        private static string Apikey = "---PLACEHOLDER---";
+
         static async Task Main(string[] args)
         {
             Console.Write("Enter the amount to convert: ");
@@ -30,8 +32,7 @@ namespace CurrencyConverter_with_API
 
         static async Task<double> GetExchangeRate(string fromCurrency, string toCurrency)
         {
-            var apiKey = "---PLACEHOLDER---";
-            var apiUrl = $"https://api.currencyapi.com/v3/latest?apikey={apiKey}&base_currency={fromCurrency}&currencies={toCurrency}";
+            var apiUrl = $"https://api.currencyapi.com/v3/latest?apikey={Apikey}&base_currency={fromCurrency}&currencies={toCurrency}";
 
             using (var httpClient = new HttpClient())
             {
@@ -39,7 +40,7 @@ namespace CurrencyConverter_with_API
                 var json = await response.Content.ReadAsStringAsync();
                 var currencyResponse = JsonConvert.DeserializeObject<CurrencyResponseModel>(json);
 
-                if (currencyResponse == null)
+                if (currencyResponse == null || currencyResponse.Data == null)
                 {
                     throw new Exception("Failed to fetch exchange rate");
                 }
