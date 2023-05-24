@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CurrencyConverter_with_API.Models;
+using Newtonsoft.Json;
 
 namespace CurrencyConverter_with_API
 {
