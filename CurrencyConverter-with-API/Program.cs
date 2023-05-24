@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Net.Http.Json;
 
 namespace CurrencyConverter_with_API
 {
@@ -38,7 +37,7 @@ namespace CurrencyConverter_with_API
             {
                 var response = await httpClient.GetAsync(apiUrl);
                 var json = await response.Content.ReadAsStringAsync();
-                var currencyResponse = JsonConvert.DeserializeObject<CurrencyResponse>(json);
+                var currencyResponse = JsonConvert.DeserializeObject<CurrencyResponseModel>(json);
 
                 if (currencyResponse == null)
                 {
@@ -53,22 +52,5 @@ namespace CurrencyConverter_with_API
         {
             return amount * exchangeRate;
         }
-    }
-
-    public class CurrencyData
-    {
-        public string Code { get; set; }
-        public double Value { get; set; }
-    }
-
-    public class CurrencyResponse
-    {
-        public MetaData Meta { get; set; }
-        public Dictionary<string, CurrencyData> Data { get; set; }
-    }
-
-    public class MetaData
-    {
-        public DateTime LastUpdatedAt { get; set; }
     }
 }
